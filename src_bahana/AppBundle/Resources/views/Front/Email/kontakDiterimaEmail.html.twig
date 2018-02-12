@@ -1,0 +1,101 @@
+<body bgcolor="#FFFFFF">
+<table style="width: 100%; background-color: #fff">
+    <tr>
+        <td style="padding: 5px;
+                    display:block!important;
+                    clear:both!important;">
+            <div style="max-width:800px;
+                        display:block;">
+                <table bgcolor="#fff">
+                    <tr>
+                        <td><img style="height:100px"
+                                 src="{{ absolute_url(asset('assets/images/logo-bahana-email.png')) }}"/></td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table style="width: 100%">
+    <tr>
+        <td style="display:block!important;
+                    clear:both!important;
+                    background-color: #fff">
+            <div style="padding:5px;
+                        max-width:800px;
+                        display:block;">
+                <table>
+                    <tr>
+                        <td>
+                            <h3>Terima kasih {{ kontak.namaLengkap }}, telah mengirim pesan kepada kami melalui
+                                <a href="{{ absolute_url(url('app_default_index')) }}">www.bahanayamaha.com</a>
+                            </h3>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td width="40%">Nama Lengkap</td>
+                                    <td width="60%">: {{ kontak.namaLengkap }}</td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">Email</td>
+                                    <td width="60%">: <a href="mailto:{{ kontak.email }}">{{ kontak.email }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">Subyek</td>
+                                    <td width="60%">: {{ kontak.subyek }}</td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">Pesan</td>
+                                    <td width="60%">: {{ kontak.pesan }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <br>
+                            <table style="background-color: #ebebeb;
+                                            width: 100%">
+                                <tr>
+                                    <td>
+                                        <table align="left" style="width: 300px; float:left; text-align: center">
+                                            <tr>
+                                                <td>
+                                                    <h4>Kunjungi Website kami:</h4>
+                                                    <p>
+                                                        <a href="http://www.bahanayamaha.com/"
+                                                           style="padding: 3px 7px;
+                                                            font-size:12px;
+                                                            margin-bottom:10px;
+                                                            text-decoration:none;
+                                                            color: #FFF;font-weight:bold;
+                                                            display:block;
+                                                            text-align:center;
+                                                            background-color: #DB4A39!important;">
+                                                            www.bahanayamaha.com</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table align="left" style="width: 300px; float:left; text-align: center">
+                                            <tr>
+                                                <td>
+                                                    <h4>Informasi lebih lanjut:</h4>
+                                                    <p>
+                                                        <strong>022-5221811, 022-5221812</strong><br/>
+                                                        <strong><a href="emailto:support@bahanayamaha.com">support@bahanayamaha.com</a></strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <span style="display: block; clear: both;"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>

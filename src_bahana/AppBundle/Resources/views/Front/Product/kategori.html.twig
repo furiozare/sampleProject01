@@ -1,0 +1,51 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row">
+            {{ render(controller('AppBundle:Front/Product:listKategori', {'currentPath':currentPath, 'currentUrl':currentUrl})) }}
+
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="w100 clearfix category-top">
+                    <h2> {{ kategori.nama }} </h2>
+                </div>
+                <div class="row  categoryProduct xsResponse clearfix">
+                    {% for kendaraan in kategori.kendaraans %}
+                        {% if kendaraan.aktif %}
+                            <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="image">
+                                        <a href="{{ url('app_product_detail_kendaraan', { slug:kendaraan.kategori.slug, slug1:kendaraan.slug }) }}">
+                                            {% if kendaraan.kendaraanPhotos|length > 0 %}
+                                                <img src="{{ asset(kendaraan.kendaraanPhotos[0].url) }}" alt="img"
+                                                     class="img-responsive">
+                                            {% else %}
+                                                <img src="{{ asset('assets/images/r25.jpg') }}" alt="img"
+                                                     class="img-responsive">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="description">
+                                        <h4>
+                                            <a href="{{ url('app_product_detail_kendaraan', { slug:kendaraan.kategori.slug, slug1:kendaraan.slug }) }}">
+                                                {{ kendaraan.nama }}
+                                            </a>
+                                        </h4>
+                                        <div class="price">
+                                            <span>RP {{ kendaraan.harga | number_format(0, ',', '.') }}</span></div>
+                                        <div class="action-control">
+                                            <a class="btn btn-primary"
+                                               href="{{ url('app_product_detail_kendaraan', { slug:kendaraan.kategori.slug, slug1:kendaraan.slug }) }}">
+                                                <span class="add2cart">Lihat Detail</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

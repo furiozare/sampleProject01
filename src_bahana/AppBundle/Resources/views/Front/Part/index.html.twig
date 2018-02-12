@@ -1,0 +1,51 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row">
+            {{ render(controller('AppBundle:Front/Part:listKategori', {'currentPath':currentPath, 'currentUrl':currentUrl})) }}
+
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                {% for kategori in kategoris %}
+                    <div class="w100 clearfix category-top">
+                        <h2> {{ kategori.nama }} </h2>
+                    </div>
+                    <div class="row  categoryProduct xsResponse clearfix">
+                        {% for part in kategori.parts %}
+                            {% if part.aktif %}
+                                <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                                    <div class="product">
+                                        <div class="image">
+                                            <a href="{{ url('app_part_detail_part', { slug:part.kategoriPart.slug, slug1:part.slug }) }}">
+                                                {% if part.partPhotos | length > 0 %}
+                                                    <img src="{{ asset(part.partPhotos[0].url) }}" alt="img"
+                                                         class="img-responsive">
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="description">
+                                            <h4>
+                                                <a href="{{ url('app_part_detail_part', { slug:part.kategoriPart.slug, slug1:part.slug }) }}">
+                                                    {{ part.nama }}
+                                                </a>
+                                            </h4>
+                                            <div class="price">
+                                                {#<span>RP {{ part.harga | number_format(0, ',', '.') }}</span>#}
+                                            </div>
+                                            <div class="action-control">
+                                                <a class="btn btn-primary"
+                                                   href="{{ url('app_part_detail_part', { slug:part.kategoriPart.slug, slug1:part.slug }) }}">
+                                                    <span class="add2cart">Lihat Detail</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

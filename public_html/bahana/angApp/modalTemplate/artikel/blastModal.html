@@ -1,0 +1,25 @@
+<form id="blastArtikelForm" role="form" method="post" ng-submit="save()" cg-busy="CRUD">
+    <div class="modal-header">
+        <button class="close" aria-label="Close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">&times</span>
+        </button>
+        <h4 id="myLargeModalLabel" class="modal-title">[[ title ]]</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+                Apakah anda yakin akan memblast artikel ini?
+            </div>
+            <div class="col-lg-12">
+                <div class="alert alert-warning">
+                    <strong>Perhatian!</strong> Dengan menyetujui untuk memblast artikel ini, maka artikel ini akan
+                    secara otomatis diblast oleh server ke seluruh Email yang telah mendaftarkan diri untuk disubscribe.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Yes</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()">No</button>
+    </div>
+</form>

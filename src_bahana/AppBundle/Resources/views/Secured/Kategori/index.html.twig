@@ -1,0 +1,69 @@
+{% extends "AppBundle:Secured:base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/secured/kategoriController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/kategori/createModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/kategori/updateModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/kategori/deleteModalController.js') }}"></script>
+    <script src="{{ asset('angApp/resource/kategori.js') }}"></script>
+    <script src="{{ asset('angApp/kategori.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row" ng-controller="KategoriController" style="margin-top: 10px;" cg-busy="main">
+        <div class="col-lg-12">
+            <button ng-click="createKategori()" type="button" class="btn btn-primary"><i
+                        class="fa fa-plus"></i> Tambah Kategori
+            </button>
+        </div>
+        <div class="col-lg-12" style="margin-top: 10px;">
+            <div class="table-responsive" style="max-height: 500px; overflow: auto;">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th style="cursor: pointer;" ng-click="sortData('nama')">
+                            Nama
+                                            <span ng-if="sorting == 'nama'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('aktif')">
+                            Aktif
+                                            <span ng-if="sorting == 'aktif'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="kategori in kategoris | filter : searchFilter | orderBy : sorting : sortingReverse">
+                        <td class="centered">
+                            <img style="width: 150px" ng-src="[[ base_url + kategori.url ]]">
+                        </td>
+                        <td>[[ kategori.nama ]]</td>
+                        <td>
+                            <input type="checkbox" name="aktif" value="1" ng-model="kategori.aktif"
+                                   ng-change="toogleActive(kategori)">
+                        </td>
+                        <td>
+                            <button ng-click="updateKategori(kategori)" type="button"
+                                    class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></button>
+                            <button ng-click="deleteKategori(kategori)" type="button"
+                                    class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr ng-if="kategoris.length == 0">
+                        <td colspan="100">Belum ada data yang bisa ditampilkan.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,223 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var kategoriSlug = "{{ kendaraan.kategori.slug }}";
+        var kendaraanSlug = "{{ kendaraan.slug }}";
+        var kendaraanWarnaId = {{ kendaraanWarna.id }};
+    </script>
+
+    <script src="{{ asset('angApp/resource/front/bookingOrder.js') }}"></script>
+    <script src="{{ asset('angApp/resource/front/dealer.js') }}"></script>
+    <script src="{{ asset('angApp/resource/front/hargaOTR.js') }}"></script>
+    <script src="{{ asset('angApp/controller/bookingProductController.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row">
+            <h1 class="section-title-inner"><span><i class="fa fa-book"></i> Formulir Pemesanan Motor</span></h1>
+            <div class="col-sm-2 hidden-xs">
+                <img src="{{ asset('assets/images/products.jpg') }}" width="100%" class="img-responsive">
+            </div>
+            <div class="col-sm-8">
+                {#<h3>Pesan Sepeda Motor</h3>#}
+                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                    dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum."</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12  col-sm-12">
+                <div class="row userInfo" ng-controller="BookingProductController" cg-busy="CRUD">
+                    <div class="col-sm-12" ng-if="success">
+                        <div class="alert alert-success">
+                            <strong>Selamat!</strong> Permintaan booking anda berhasil kami simpan. Admin kami akan
+                            segera menghubungi anda.
+                        </div>
+                    </div>
+                    <div ng-if="!success">
+                        <form role="form">
+                            <div class="col-xs-12 col-sm-4">
+                                <h2 class="block-title-2"> Informasi Motor dan Dealer </h2>
+                                <div class="form-group has-success has-feedback"
+                                     ng-class="{'has-error': errors.kategori, 'has-feedback': errors.kategori}">
+                                    <label class="control-label" for="category">Kategori</label>
+                                    <input type="text" class="form-control" id="kategori" ng-disabled="true"
+                                           value="{{ kendaraan.kategori.nama }}">
+                                    <span class="glyphicon glyphicon-ok form-control-feedback"
+                                          aria-hidden="true"></span>
+                                </div>
+                                <div class="form-group has-success has-feedback"
+                                     ng-class="{'has-error': errors.produk, 'has-feedback': errors.produk}">
+                                    <label class="control-label" for="category">Produk</label>
+                                    <input type="text" class="form-control" id="produk" ng-disabled="true"
+                                           value="{{ kendaraan.kode ~ "___" ~ kendaraan.nama }}">
+                                    <span class="glyphicon glyphicon-ok form-control-feedback"
+                                          aria-hidden="true"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Warna yang dipilih</label>
+                                    <p class="form-control-static">
+                                        <b>
+                                            <img src="{{ asset(kendaraanWarna.warna.url) }}"> {{ kendaraanWarna.warna.nama }}
+                                        </b>
+                                    </p>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': errors.dealer}">
+                                    <label class="control-label">Dealer</label>
+                                    <div class="text-danger small" ng-show="errors.dealer">[[ errors.dealer ]]</div>
+
+                                    <select class="form-control"
+                                            ng-change="changeDealer(selectedDealer)"
+                                            ng-model="selectedDealer"
+                                            ng-options="dealer as dealer.nama group by dealer.kota.nama for dealer in dealers | orderBy : ['kota.nama','nama']">
+                                        <option value="">-- pilih Dealer --</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"
+                                     ng-class="{'has-error': errors.hargaOTR, 'has-feedback': errors.hargaOTR}">
+                                    <label class="control-label" for="harga">Harga</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">IDR</span>
+                                        <input type="text" class="form-control" id="harga"
+                                               value="[[ selectedHargaOTR != null && (selectedHargaOTR.harga | string_to_number_formatted) || '' ]]"
+                                               readonly>
+                                        <span class="input-group-addon">OTR [[ selectedHargaOTR.kota.nama ]]</span>
+                                    </div>
+                                    <span ng-if="errors.hargaOTR"
+                                          class="glyphicon glyphicon-remove form-control-feedback"
+                                          aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xs-12 col-sm-4" ng-if="!success">
+                        <h2 class="block-title-2"> Informasi Pelanggan </h2>
+
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.namaLengkap, 'has-feedback': errors.namaLengkap}">
+                            <label class="control-label" for="name">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name" ng-model="bookingOrder.namaLengkap">
+                            <span ng-if="errors.namaLengkap" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.alamat, 'has-feedback': errors.alamat}">
+                            <label class="control-label" for="address">Alamat</label>
+                            <textarea class="form-control" id="address" ng-model="bookingOrder.alamat"></textarea>
+                            <span ng-if="errors.alamat" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.kota, 'has-feedback': errors.kota}">
+                            <label class="control-label" for="kota">Kota</label>
+                            <input type="text" class="form-control" id="kota" ng-model="bookingOrder.kota">
+                                <span ng-if="errors.kota" class="glyphicon glyphicon-remove form-control-feedback"
+                                      aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.kodePos, 'has-feedback': errors.kodePos}">
+                            <label class="control-label" for="kodePos">Kode Pos</label>
+                            <input type="text" class="form-control" id="kodePos" ng-model="bookingOrder.kodePos">
+                                <span ng-if="errors.kodePos" class="glyphicon glyphicon-remove form-control-feedback"
+                                      aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.kelurahan, 'has-feedback': errors.kelurahan}">
+                            <label class="control-label" for="kelurahan">Kelurahan</label>
+                            <input type="text" class="form-control" id="kelurahan" ng-model="bookingOrder.kelurahan">
+                                <span ng-if="errors.kelurahan" class="glyphicon glyphicon-remove form-control-feedback"
+                                      aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.kecamatan, 'has-feedback': errors.kecamatan}">
+                            <label class="control-label" for="kecamatan">Kecamatan</label>
+                            <input type="text" class="form-control" id="kecamatan" ng-model="bookingOrder.kecamatan">
+                                <span ng-if="errors.kecamatan" class="glyphicon glyphicon-remove form-control-feedback"
+                                      aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.tempatLahir, 'has-feedback': errors.tempatLahir}">
+                            <label class="control-label" for="tempatLahir">Tempat Lahir</label>
+                            <input type="text" class="form-control" id="tempatLahir"
+                                   ng-model="bookingOrder.tempatLahir">
+                                <span ng-if="errors.tempatLahir"
+                                      class="glyphicon glyphicon-remove form-control-feedback"
+                                      aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4" ng-if="!success">
+                        <h2 class="block-title-2"><span>&nbsp;</span></h2>
+
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.tanggalLahir, 'has-feedback': errors.tanggalLahir}">
+                            <label class="control-label">Tanggal Lahir</label>
+                            <div class="text-danger small" ng-show="errors.tanggalLahir">[[ errors.tanggalLahir ]]</div>
+
+                            <p class="input-group">
+                                <input type="text" class="form-control" ng-model="bookingOrder.tanggalLahir"
+                                       name="tanggalLahir" enable-time="false" datetime-picker="yyyy-MM-dd"
+                                       is-open="status.tanggalLahir.opened"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open('tanggalLahir')">
+                                        <i class="fa fa-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.jenisKelamin, 'has-feedback': errors.jenisKelamin}">
+                            <label class="control-label" for="radios">Jenis kelamin</label>
+                            <label class="radio" for="radios-0">
+                                <input name="radios" id="radios-0" ng-model="jenisKelamin" value="1" checked="checked"
+                                       type="radio">
+                                Laki-Laki </label>
+                            <label class="radio-inline" for="radios-1">
+                                <input name="radios" id="radios-1" ng-model="jenisKelamin" value="2" type="radio">
+                                perempuan </label>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error': errors.noKTP, 'has-feedback': errors.noKTP}">
+                            <label class="control-label" for="nik">No. KTP</label>
+                            <input type="text" class="form-control" id="nik" ng-model="bookingOrder.noKTP">
+                            <span ng-if="errors.noKTP" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error': errors.telepon, 'has-feedback': errors.telepon}">
+                            <label class="control-label" for="phone">No. Handphone</label>
+                            <input type="text" class="form-control" id="phone" ng-model="bookingOrder.telepon">
+                            <span ng-if="errors.telepon" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.noNPWP, 'has-feedback': errors.noNPWP}">
+                            <label class="control-label" for="npwp">No. NPWP</label>
+                            <input type="text" class="form-control" id="npwp" ng-model="bookingOrder.noNPWP">
+                            <span ng-if="errors.noNPWP" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': errors.email, 'has-feedback': errors.email}">
+                            <label class="control-label" for="email">Email</label>
+                            <input type="text" class="form-control" id="email" ng-model="bookingOrder.email">
+                            <span ng-if="errors.email" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <button class="btn btn-primary" ng-click="save()">
+                            <i class="fa fa-sign-in"></i> Proses Pemesanan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="gap"></div>
+
+
+{% endblock %}

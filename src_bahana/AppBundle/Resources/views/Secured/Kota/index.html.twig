@@ -1,0 +1,73 @@
+{% extends "AppBundle:Secured:base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/secured/kotaController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/kota/createModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/kota/updateModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/kota/deleteModalController.js') }}"></script>
+    <script src="{{ asset('angApp/kota.js') }}"></script>
+    <script src="{{ asset('angApp/propinsi.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row" ng-controller="KotaController" style="margin-top: 10px;" cg-busy="main">
+        <div class="col-lg-12">
+            <button ng-click="createKota()" type="button" class="btn btn-primary"><i
+                        class="fa fa-plus"></i> Tambah Kota
+            </button>
+        </div>
+        <div class="col-lg-12" style="margin-top: 10px;">
+            <div class="table-responsive" style="max-height: 500px; overflow: auto;">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                    <tr>
+                        <th style="cursor: pointer;" ng-click="sortData('nama')">
+                            Nama
+                                            <span ng-if="sorting == 'nama'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('propinsi.nama')">
+                            Propinsi
+                                            <span ng-if="sorting == 'propinsi.nama'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('aktif')">
+                            Aktif
+                                            <span ng-if="sorting == 'aktif'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="kota in kotas | filter : searchFilter | orderBy : sorting : sortingReverse">
+                        <td>[[ kota.nama ]]</td>
+                        <td>[[ kota.propinsi.nama ]]</td>
+                        <td>
+                            <input type="checkbox" name="aktif" value="1" ng-model="kota.aktif"
+                                   ng-change="toogleActive(kota)">
+                        </td>
+                        <td>
+                            <button ng-click="updateKota(kota)" type="button"
+                                    class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></button>
+                            <button ng-click="deleteKota(kota)" type="button"
+                                    class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr ng-if="kotas.length == 0">
+                        <td colspan="100">Belum ada data yang bisa ditampilkan.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "AppBundle:Secured:base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/secured/setting/dealerController.js') }}"></script>
+    <script src="{{ asset('angApp/setting.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-top: 10px;">
+        <form method="post" ng-controller="DealerController" ng-submit="save()">
+            <div class="col-lg-12">
+                <div class="panel panel-info" cg-busy="main">
+                    <div class="panel-heading">
+                        Dealer Bahana Yamaha
+                        <button type="submit" class="btn btn-primary btn-circle"><i
+                                    class="fa fa-save"></i></button>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group" ng-class="{'has-error': errors.dealer}">
+                                    <div class="text-danger small" ng-show="errors.dealer">[[ errors.dealer ]]</div>
+
+                                    <label class="control-label">Dealer</label>
+                                    <textarea type="text" class="form-control" name="dealer"
+                                              placeholder="Dealer"
+                                              ng-model="dealer.setting_value" style="resize: none"
+                                              ckeditor="editorOptions"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row">
+            {{ render(controller('AppBundle:Front/Article:listKategori', {'currentPath':currentPath, 'currentUrl':currentUrl})) }}
+
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="blog-wrapper">
+                    <div class="bl-inner">
+                        <div class="item-blog-post">
+                            <div class="post-header clearfix">
+                                <h2 class="fadeInDown  wow" data-wow-duration="0.2s" data-wow-delay=".5s">
+                                    {{ artikel.judul }}
+                                </h2>
+
+                                <div class="post-info">
+                                    by <span><a class="userBy"> {{ artikel.sumber }} </a></span> on
+                                    <span> {{ artikel.createdAt | date('d M Y') }} </span>
+                                </div>
+                            </div>
+                            <div class="post-main-view">
+                                {{ artikel.isi | raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

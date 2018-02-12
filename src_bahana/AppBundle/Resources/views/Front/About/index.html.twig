@@ -1,0 +1,23 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block content %}
+
+    <div class="container main-container headerOffset">
+
+        <div class="row innerPage">
+            <div class="col-sm-3">
+                <img src="{{ asset('assets/images/logo-bahana.png') }}" width="100%" class="img-responsive">
+            </div>
+            <div class="col-sm-9">
+                <h3>Tentang Bahana Yamaha</h3>
+                {{ about.settingValue | raw }}
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="gap">
+
+        <div class="row">
+
+        </div>
+{% endblock %}

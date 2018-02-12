@@ -1,0 +1,77 @@
+<form id="KendaraanForm" role="form" method="post" ng-submit="save()"
+      cg-busy="CRUD">
+    <div class="modal-header">
+        <button class="close" aria-label="Close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">&times</span>
+        </button>
+        <h4 id="myLargeModalLabel" class="modal-title">[[ title ]]</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="form-group" ng-class="{'has-error': errors.kategori}">
+                    <div class="text-danger small" ng-show="errors.kategori">[[ errors.kategori ]]</div>
+
+                    <label class="control-label">Kategori</label>
+                    <input type="hidden" id="kategori" name="kategori" value="[[ kendaraan.kategori.id ]]">
+                    <select class="form-control"
+                            ng-model="kendaraan.kategori.id"
+                            ng-options="kategori.id as kategori.nama for kategori in kategoris">
+                        <option value="">-- pilih Kategori --</option>
+                    </select>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.nama}">
+                    <div class="text-danger small" ng-show="errors.nama">[[ errors.nama ]]</div>
+
+                    <label class="control-label">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama" ng-model="kendaraan.nama">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.kode}">
+                    <div class="text-danger small" ng-show="errors.kode">[[ errors.kode ]]</div>
+
+                    <label class="control-label">Kode</label>
+                    <input type="text" class="form-control" name="kode" placeholder="Kode" ng-model="kendaraan.kode">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.harga}">
+                    <div class="text-danger small" ng-show="errors.harga">[[ errors.harga ]]</div>
+
+                    <label class="control-label">Harga</label>
+                    <input type="text" class="form-control" name="harga" placeholder="Harga" ng-model="kendaraan.harga">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.tagLine}">
+                    <div class="text-danger small" ng-show="errors.tagLine">[[ errors.tagLine ]]</div>
+
+                    <label class="control-label">Tag Line</label>
+                    <input type="text" class="form-control" name="tagLine" placeholder="Tag Line"
+                           ng-model="kendaraan.tag_line">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.description}">
+                    <div class="text-danger small" ng-show="errors.description">[[ errors.description ]]</div>
+
+                    <label class="control-label">Description</label>
+                    <textarea cols="30" rows="40" ng-model="kendaraan.description"
+                              ckeditor="editorOptions"></textarea>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.aktif}">
+                    <div class="text-danger small" ng-show="errors.aktif">[[ errors.aktif ]]</div>
+
+                    <label class="control-label checkbox-inline">
+                        <input type="checkbox" name="aktif" value="1" ng-model="kendaraan.aktif"
+                               ng-model="kendaraan.aktif">Aktif
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Save</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

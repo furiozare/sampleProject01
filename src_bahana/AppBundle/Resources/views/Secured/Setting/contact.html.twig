@@ -1,0 +1,101 @@
+{% extends "AppBundle:Secured:base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/secured/setting/informasiKontakController.js') }}"></script>
+    <script src="{{ asset('angApp/controller/secured/setting/informasiKontak2Controller.js') }}"></script>
+    <script src="{{ asset('angApp/setting.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-top: 10px;">
+        <form method="post" ng-controller="InformasiKontakController" ng-submit="save()">
+            <div class="col-lg-4">
+                <div class="panel panel-info" cg-busy="main">
+                    <div class="panel-heading">
+                        Informasi Kontak 1
+                        <button type="submit" class="btn btn-primary btn-circle"><i
+                                    class="fa fa-save"></i></button>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group" ng-class="{'has-error': errors.alamat}">
+                                    <div class="text-danger small" ng-show="errors.alamat">[[ errors.alamat ]]</div>
+
+                                    <label class="control-label">Alamat</label>
+                                    <input type="text" class="form-control" name="alamat" placeholder="Alamat"
+                                           ng-model="alamat.setting_value">
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': errors.fax}">
+                                    <div class="text-danger small" ng-show="errors.fax">[[ errors.fax ]]</div>
+
+                                    <label class="control-label">Fax</label>
+                                    <input type="text" class="form-control" name="fax" placeholder="Fax"
+                                           ng-model="fax.setting_value">
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': errors.telepon}">
+                                    <div class="text-danger small" ng-show="errors.telepon">[[ errors.telepon ]]</div>
+
+                                    <label class="control-label">Telepon</label>
+                                    <input type="text" class="form-control" name="telepon" placeholder="Telepon"
+                                           ng-model="telepon.setting_value">
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': errors.email}">
+                                    <div class="text-danger small" ng-show="errors.email">[[ errors.email ]]</div>
+
+                                    <label class="control-label">Email</label>
+                                    <input type="text" class="form-control" name="email" placeholder="Email"
+                                           ng-model="email.setting_value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form method="post" ng-controller="InformasiKontak2Controller" ng-submit="save()">
+            <div class="col-lg-8">
+                <div class="panel panel-info" cg-busy="main">
+                    <div class="panel-heading">
+                        Informasi Kontak 2
+                        <button type="submit" class="btn btn-primary btn-circle"><i
+                                    class="fa fa-save"></i></button>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group" ng-class="{'has-error': errors.kunjungiKami}">
+                                    <div class="text-danger small" ng-show="errors.kunjungiKami">
+                                        [[ errors.kunjungiKami ]]
+                                    </div>
+
+                                    <label class="control-label">Kunjungi Kami</label>
+                                    <textarea type="text" class="form-control" name="kunjungiKami"
+                                              placeholder="Kunjungi Kami"
+                                              ng-model="kunjungiKami.setting_value" style="resize: none"
+                                              ckeditor="smallEditorOptions"></textarea>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': errors.jamOperasional}">
+                                    <div class="text-danger small" ng-show="errors.jamOperasional">
+                                        [[ errors.jamOperasional ]]
+                                    </div>
+
+                                    <label class="control-label">Jam Operasional</label>
+                                    <textarea type="text" class="form-control" name="jamOperasional"
+                                              placeholder="Jam Operasional"
+                                              ng-model="jamOperasional.setting_value" style="resize: none"
+                                              ckeditor="smallEditorOptions"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

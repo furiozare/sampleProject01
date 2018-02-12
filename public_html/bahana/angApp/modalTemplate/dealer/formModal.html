@@ -1,0 +1,116 @@
+<form id="DealerForm" role="form" method="post" ng-submit="save()"
+      cg-busy="CRUD">
+    <div class="modal-header">
+        <button class="close" aria-label="Close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">&times</span>
+        </button>
+        <h4 id="myLargeModalLabel" class="modal-title">[[ title ]]</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="form-group" ng-class="{'has-error': errors.kota}">
+                    <div class="text-danger small" ng-show="errors.kota">[[ errors.kota ]]</div>
+
+                    <label class="control-label">Kota</label>
+                    <input type="hidden" id="kota" name="kota" value="[[ dealer.kota.id ]]">
+                    <select class="form-control"
+                            ng-model="dealer.kota.id"
+                            ng-options="kota.id as kota.nama group by kota.propinsi.nama for kota in kotas | orderBy : ['propinsi.nama','nama']">
+                        <option value="">-- pilih Kota --</option>
+                    </select>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.nama}">
+                    <div class="text-danger small" ng-show="errors.nama">[[ errors.nama ]]</div>
+
+                    <label class="control-label">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama" ng-model="dealer.nama">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.alamat}">
+                    <div class="text-danger small" ng-show="errors.alamat">[[ errors.alamat ]]</div>
+
+                    <label class="control-label">Alamat</label>
+                    <input type="text" class="form-control" name="alamat" placeholder="Alamat" ng-model="dealer.alamat">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.telepon}">
+                    <div class="text-danger small" ng-show="errors.telepon">[[ errors.telepon ]]</div>
+
+                    <label class="control-label">Telepon</label>
+                    <input type="text" class="form-control" name="telepon" placeholder="Telepon"
+                           ng-model="dealer.telepon">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.email}">
+                    <div class="text-danger small" ng-show="errors.email">[[ errors.email ]]</div>
+
+                    <label class="control-label">Email</label>
+                    <input type="text" class="form-control" name="email" placeholder="Email" ng-model="dealer.email">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.emailSales}">
+                    <div class="text-danger small" ng-show="errors.emailSales">[[ errors.emailSales ]]</div>
+
+                    <label class="control-label">Email Sales</label>
+                    <input type="text" class="form-control" name="email_sales" placeholder="Email Sales"
+                           ng-model="dealer.email_sales">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.emailService}">
+                    <div class="text-danger small" ng-show="errors.emailService">[[ errors.emailService ]]</div>
+
+                    <label class="control-label">Email Service</label>
+                    <input type="text" class="form-control" name="email_service" placeholder="Email Service"
+                           ng-model="dealer.email_service">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.fax}">
+                    <div class="text-danger small" ng-show="errors.fax">[[ errors.fax ]]</div>
+
+                    <label class="control-label">Fax</label>
+                    <input type="text" class="form-control" name="fax" placeholder="Fax" ng-model="dealer.fax">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.latitude}">
+                    <div class="text-danger small" ng-show="errors.latitude">[[ errors.latitude ]]</div>
+
+                    <label class="control-label">Latitude</label>
+                    <input type="text" class="form-control" name="latitude" placeholder="Latitude"
+                           ng-model="dealer.latitude">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.longitude}">
+                    <div class="text-danger small" ng-show="errors.longitude">[[ errors.longitude ]]</div>
+
+                    <label class="control-label">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" placeholder="Longitude"
+                           ng-model="dealer.longitude">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.zoomPoint}">
+                    <div class="text-danger small" ng-show="errors.zoomPoint">[[ errors.zoomPoint ]]</div>
+
+                    <label class="control-label">Zoom Point</label>
+                    <input type="text" class="form-control" name="zoomPoint" placeholder="Zoom Point"
+                           ng-model="dealer.zoom_point">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.aktif}">
+                    <div class="text-danger small" ng-show="errors.aktif">[[ errors.aktif ]]</div>
+
+                    <label class="control-label checkbox-inline">
+                        <input type="checkbox" name="aktif" value="1" ng-model="dealer.aktif"
+                               ng-model="dealer.aktif">Aktif
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Save</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

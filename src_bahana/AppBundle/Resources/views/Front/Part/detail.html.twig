@@ -1,0 +1,84 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var selectedPhotoId = '{{ part.partPhotos | length > 0 ? (part.partPhotos | first).id : "" }}';
+        var selectedUkuranId = '{{ part.partUkurans | length > 0 ? (part.partUkurans | first).id : "" }}';
+
+        var photos = {{ partPhotos | raw }};
+        var ukurans = {{ partUkurans | raw }};
+    </script>
+
+    <script src="{{ asset('angApp/controller/detailPartController.js') }}"></script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row transitionfx" ng-controller="DetailPartController">
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 productImageZoom">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-xs-9">
+                        <div class="alert alert-warning" ng-if="partPhotos.length == 0">
+                            <strong>Perhatian!</strong>
+                            Belum ada foto part untuk saat ini.
+                        </div>
+                        <div class='zoom' id='zoomContent' ng-if="partPhotos.length > 0">
+                            <a class="gall-item" title="product-title">
+                                <img class="zoomImage1 img-responsive det-img" ng-src="[[ base_url + selectedPhoto.url ]]"
+                                     alt='{{ part.nama }}'/>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div class="zoomThumb" ng-if="partPhotos.length > 1">
+                            <a class="zoomThumbLink" ng-repeat="partPhoto in partPhotos"
+                               ng-click="selectPhoto(partPhoto)"
+                               ng-class="{'active': partPhoto.id == selectedPhotoId}">
+                                <img ng-src="[[ base_url + partPhoto.url ]]" alt="Saleen" title=""/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+
+                <h2 class="product-title"> {{ part.nama }}</h2>
+
+                <h3 class="product-code">Product Code : {{ part.nama }}</h3>
+
+                <div class="product-price">
+                    <span class="price-sales"> RP {{ part.harga | number_format(0, ',', '.') }}</span>
+                    {#<span class="price-standard"> RP {{ part.harga | number_format(0, ',', '.') }}</span>#}
+                </div>
+
+                <div class="details-description">
+                    <p>{{ part.deskripsi | raw }} </p>
+                </div>
+
+                <div class="color-details">
+                    <span class="selected-color"><strong>Pilihan Ukuran</strong></span>
+                    <ul class="swatches Color" ng-if="partUkurans.length > 0">
+                        <li ng-click="selectUkuran(partUkuran)"
+                            ng-class="{'selected': partUkuran.id == selectedWarnaId}"
+                            ng-repeat="partUkuran in partUkurans"
+                            style="cursor: pointer;">
+                            <a>
+                                [[ partUkuran.ukuran.nama ]]
+                            </a>
+                        </li>
+                    </ul>
+                    <div ng-if="partUkurans.length == 0" class="alert alert-warning">
+                        <strong>Perhatian!</strong>
+                        Belum ada pilihan ukuran untuk saat ini.
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

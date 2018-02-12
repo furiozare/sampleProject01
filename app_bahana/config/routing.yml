@@ -1,0 +1,22 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+login_check:
+    path:     /secured/login-check
+
+logout:
+    path:     /secured/logout
+
+front:
+    resource: "@AppBundle/Controller/Front/"
+    type:     annotation
+
+secured:
+    resource: "@AppBundle/Controller/Secured/"
+    type:     annotation
+    prefix:   /secured
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

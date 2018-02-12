@@ -1,0 +1,159 @@
+<body bgcolor="#FFFFFF">
+<table style="width: 100%; background-color: #fff">
+    <tr>
+        <td style="padding: 5px;
+                    display:block!important;
+                    clear:both!important;">
+            <div style="max-width:800px;
+                        display:block;">
+                <table bgcolor="#fff">
+                    <tr>
+                        <td><img style="height:100px" src="{{ absolute_url(asset('assets/images/logo-bahana-email.png')) }}" /></td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table style="width: 100%">
+    <tr>
+        <td style="display:block!important;
+                    clear:both!important;
+                    background-color: #fff">
+            <div style="padding:5px;
+                        max-width:800px;
+                        display:block;">
+                <table>
+                    <tr>
+                        <td>
+                            <h3>Terima kasih telah memesan kendaraan anda di Bahana Yamaha</h3>
+                            <h4>Nomor pemesanan kendaraan anda adalah <b>#6469</b></h4>
+                            <p>
+                                <img alt="img" style="width: 100%"
+                                     src="{{ absolute_url(asset(
+                                     (bookingOrder.kendaraanWarna.kendaraan.kendaraanPhotos | length) > 0 ?
+                                     (bookingOrder.kendaraanWarna.kendaraan.kendaraanPhotos.first).url
+                                     :
+                                     'assets/images/products.jpg'
+                                     )) }}">
+                            </p>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>Nama Produk</td>
+                                    <td>: {{ bookingOrder.kendaraanWarna.kendaraan.nama }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Warna</td>
+                                    <td>:
+                                        <img alt="img" class="img-responsive"
+                                             src="{{ absolute_url(asset( bookingOrder.kendaraanWarna.warna.url )) }}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Dealer</td>
+                                    <td>: {{ bookingOrder.dealer.nama }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Harga OTR - {{ bookingOrder.hargaOTR.kota.nama }}</td>
+                                    <td>: Rp {{ bookingOrder.hargaOTR.harga | number_format(0, ',', '.') }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Lengkap</td>
+                                    <td>: {{ bookingOrder.namaLengkap }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>: {{ bookingOrder.alamat }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Kota</td>
+                                    <td>: {{ bookingOrder.kota }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Kode Pos</td>
+                                    <td>: {{ bookingOrder.kodePos }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Kelurahan</td>
+                                    <td>: {{ bookingOrder.kelurahan }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Kecamatan</td>
+                                    <td>: {{ bookingOrder.kecamatan }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Tempat Lahir</td>
+                                    <td>: {{ bookingOrder.tempatLahir }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Lahir</td>
+                                    <td>: {{ bookingOrder.tanggalLahir | date('d F Y') }} </td>
+                                </tr>
+                                <tr>
+                                    <td>No. KTP</td>
+                                    <td>: {{ bookingOrder.noKTP }} </td>
+                                </tr>
+                                <tr>
+                                    <td>No. handphone</td>
+                                    <td>: {{ bookingOrder.telepon }} </td>
+                                </tr>
+                                <tr>
+                                    <td>No. NPWP</td>
+                                    <td>: {{ bookingOrder.noNPWP }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>: {{ bookingOrder.email }} </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <br>
+                            <table style="background-color: #ebebeb;
+                                            width: 100%">
+                                <tr>
+                                    <td>
+                                        <table align="left" style="width: 300px; float:left; text-align: center">
+                                            <tr>
+                                                <td>
+                                                    <h4>Kunjungi Website kami:</h4>
+                                                    <p>
+                                                        <a href="http://www.bahanayamaha.com/"
+                                                           style="padding: 3px 7px;
+                                                            font-size:12px;
+                                                            margin-bottom:10px;
+                                                            text-decoration:none;
+                                                            color: #FFF;font-weight:bold;
+                                                            display:block;
+                                                            text-align:center;
+                                                            background-color: #DB4A39!important;">
+                                                            www.bahanayamaha.com</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table align="left" style="width: 300px; float:left; text-align: center">
+                                            <tr>
+                                                <td>
+                                                    <h4>Informasi lebih lanjut:</h4>
+                                                    <p>
+                                                        <strong>022-5221811, 022-5221812</strong><br/>
+                                                        <strong><a href="emailto:support@bahanayamaha.com">support@bahanayamaha.com</a></strong>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <span style="display: block; clear: both;"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>

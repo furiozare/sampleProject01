@@ -1,0 +1,25 @@
+app.controller('DeletePropinsiModalController', function ($scope, $http, $modalInstance, Propinsi, propinsi) {
+    $scope.title    = "Menghapus Propinsi";
+    $scope.propinsi = angular.copy(propinsi);
+
+    $scope.CRUD = angular.copy($scope.cgConf);
+
+    $scope.save = function () {
+        $scope.success = false;
+
+        $scope.CRUD.promise = Propinsi.deletePropinsi($scope.propinsi.id)
+            .success(function (response) {
+                if (response.result == 'success') {
+                    $scope.success = true;
+                    $modalInstance.close($scope.propinsi);
+                }
+                if (typeof response.errors !== 'undefined') {
+                    $scope.errors = response.errors;
+                }
+            });
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});

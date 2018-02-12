@@ -1,0 +1,116 @@
+{% extends "AppBundle:Secured:base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/secured/artikelController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/artikel/createModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/artikel/updateModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/artikel/deleteModalController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/artikel/blastModalController.js') }}"></script>
+    <script src="{{ asset('angApp/resource/artikel.js') }}"></script>
+    <script src="{{ asset('angApp/resource/kategoriNews.js') }}"></script>
+    <script src="{{ asset('angApp/artikel.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row" ng-controller="ArtikelController" style="margin-top: 10px;" cg-busy="main">
+        <div class="col-lg-12">
+            <button ng-click="createArtikel()" type="button" class="btn btn-primary"><i
+                        class="fa fa-plus"></i> Tambah Artikel
+            </button>
+        </div>
+        <div class="col-lg-12" style="margin-top: 10px;">
+            <div class="table-responsive" style="max-height: 500px; overflow: auto;">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                    <tr>
+                        <th>
+                            Foto
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('kategori_news.nama')">
+                            Kategori
+                            <span ng-if="sorting == 'kategori_news.nama'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('judul')">
+                            Judul
+                            <span ng-if="sorting == 'judul'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('caption')">
+                            Caption
+                            <span ng-if="sorting == 'caption'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('sumber')">
+                            Sumber
+                            <span ng-if="sorting == 'sumber'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('aktif')">
+                            Aktif
+                            <span ng-if="sorting == 'aktif'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('mark_for_blast')">
+                            Blast
+                            <span ng-if="sorting == 'mark_for_blast'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="artikel in artikels | filter : searchFilter | orderBy : sorting : sortingReverse">
+                        <td>
+                            <img style="width: 150px;" ng-src="[[ base_url + artikel.url ]]">
+                        </td>
+                        <td>[[ artikel.kategori_news.nama ]]</td>
+                        <td>[[ artikel.judul ]]</td>
+                        <td>[[ artikel.caption ]]</td>
+                        <td>[[ artikel.sumber ]]</td>
+                        <td>
+                            <input type="checkbox" name="aktif" value="1" ng-model="artikel.aktif"
+                                   ng-change="toogleActive(artikel)">
+                        </td>
+                        <td ng-if="!artikel.mark_for_blast && artikel.blasted_at == null">
+                            <button ng-click="blastArtikel(artikel)" type="button"
+                                    class="btn btn-success btn-circle"><i class="fa fa-mail-forward"></i></button>
+                        </td>
+                        <td ng-if="!artikel.mark_for_blast && artikel.blasted_at != null">
+                            finished blast at [[ artikel.blasted_at | amDateFormat: datetime_conf ]]
+                        </td>
+                        <td ng-if="artikel.mark_for_blast">
+                            <strong class="text-success">
+                                Blasting . . .
+                            </strong>
+                        </td>
+                        <td>
+                            <button ng-click="updateArtikel(artikel)" type="button"
+                                    class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></button>
+                            <button ng-click="deleteArtikel(artikel)" type="button"
+                                    class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr ng-if="artikels.length == 0">
+                        <td colspan="100">Belum ada data yang bisa ditampilkan.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

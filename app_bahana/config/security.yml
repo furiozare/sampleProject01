@@ -1,0 +1,36 @@
+security:
+    encoders:
+        AppBundle\Entity\User: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        main:
+            entity: { class: AppBundle\Entity\User, property: username }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern:    ^/secured
+            form_login:
+                check_path: login_check
+                login_path: app_default_login
+            logout:
+                path:   logout
+                target: app_secured_default_dashboard
+
+            remember_me:
+                key:      "%secret%"
+                lifetime: 604800 # 1 week in seconds
+                path:     /secured
+            anonymous: ~
+
+    access_control:
+        - { path: ^/secured/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured, roles: ROLE_USER }
+        - { path: ^/, roles: ROLE_USER }

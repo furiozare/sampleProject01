@@ -1,0 +1,86 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6 col-xxs-12 text-center-xs">
+                <h1 class="section-title-inner"><span><i class="glyphicon glyphicon-home"></i> Dealer Network Bahana Yamaha</span>
+                </h1>
+                <p>{{ dealer.settingValue | raw }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row innerPage">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row userInfo">
+                    {% for propinsi in propinsis %}
+                        <div class="panel-group">
+                            <div class="panel panel-network">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">{{ propinsi.nama }}</h4>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            {% for kota in propinsi.getAktifKota() %}
+                                                {% for tmp in kota.getAktifDealer() %}
+                                                    <div class="col-sm-4">
+                                                        <div class="panel-dealer">
+                                                            <h5><b>{{ tmp.nama }}</b></h5>
+                                                            <a href="{{ tmp.linkGMap() }}" target="_blank">
+                                                                <div id="map{{ tmp.id }}" class="maps"></div>
+                                                            </a>
+                                                            <ul class="list-unstyled dealer-info">
+                                                                <li><i class="fa fea-hom fa-fw"></i> {{ tmp.alamat }}
+                                                                </li>
+                                                                <li><i class="fa fa-phone fa-fw"></i> {{ tmp.telepon }}
+                                                                </li>
+                                                                <li><i class="fa fa-fax fa-fw"></i> {{ tmp.fax }}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="gap"></div>
+{% endblock %}
+{% block javascript %}
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        function initialize() {
+            {% for propinsi in propinsis %}
+            {% for kota in propinsi.getAktifKota() %}
+            {% for tmp in kota.getAktifDealer() %}
+            var center{{ tmp.id }}  = new google.maps.LatLng({{ tmp.latitude }}, {{ tmp.longitude }});
+            var pos{{ tmp.id }}     = new google.maps.LatLng({{ tmp.latitude }}, {{ tmp.longitude }});
+            var mapProp{{ tmp.id }} = {
+                center: center{{ tmp.id }},
+                zoom: {{ tmp.zoomPoint }},
+                draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map{{ tmp.id }} = new google.maps.Map(document.getElementById("map{{ tmp.id }}"), mapProp{{ tmp.id }});
+
+            var marker{{ tmp.id }} = new google.maps.Marker({
+                position: pos{{ tmp.id }}
+            });
+
+            marker{{ tmp.id }}.setMap(map{{ tmp.id }});
+            {% endfor %}
+            {% endfor %}
+            {% endfor %}
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+{% endblock %}

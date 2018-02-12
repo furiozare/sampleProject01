@@ -1,0 +1,7 @@
+/app_bahana/cache
+/bahanayamaha.iml
+/.idea
+/app_bahana/logs
+/app_bahana/config/parameters.yml
+/composer.lock
+/vendor_bahana

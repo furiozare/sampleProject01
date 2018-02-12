@@ -1,0 +1,136 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block content %}
+
+    <div class="container main-container headerOffset globalPaddingBottom">
+        {% if headlines|length > 0 %}
+            <div class="row">
+                <div class=" image-show-case-wrapper center-block relative col-lg-12">
+                    <div id="imageShowCase" class="owl-carousel owl-theme">
+                        {% for headline in headlines %}
+                            <div class="product-slide">
+                                <img class="img-responsive" src="{{ asset(headline.url) }}" alt="{{ headline.nama }}"
+                                     alt="img">
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <div style="clear:both;"></div>
+                    <a id="ps-next" class="ps-nav">
+                        <img src="{{ asset('assets/images/site/arrow-right.png') }}" alt="N E X T">
+                    </a>
+                    <a id="ps-prev" class="ps-nav">
+                        <img src="{{ asset('assets/images/site/arrow-left.png') }}" alt="P R E V">
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        <div style="clear:both"></div>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr class="hr3">
+            </div>
+        </div>
+
+        <div class="row featuredPostContainer ">
+            <div class="featuredImageLook3">
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <a href="{{ url('app_service_index') }}">
+                        <div class="inner">
+                            <div class="box-content-overly box-content-overly-white">
+                                <div class="box-text-table">
+                                    <div class="box-text-cell ">
+                                        <div class="box-text-cell-inner dark">
+                                            <h1 class="uppercase">Service</h1>
+                                            <p>Booking service anda disini</p>
+                                            <hr class="submini">
+                                            <a href="{{ url('app_service_index') }}" class="btn btn-inverse">KLIK DISINI</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-title"></div>
+                            <a class="img-block">
+                                <img class="img-responsive" style="width: 100%"
+                                     src="{{ asset('assets/images/service.jpg') }}" alt="img">
+                            </a>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <a href="{{ url('app_product_index') }}">
+                        <div class="inner">
+                            <div class="box-content-overly box-content-overly-white">
+                                <div class="box-text-table">
+                                    <div class="box-text-cell ">
+                                        <div class="box-text-cell-inner dark">
+                                            <h1 class="uppercase">Produk</h1>
+                                            <p>Booking motor yamaha anda disini</p>
+                                            <hr class="submini">
+                                            <a href="{{ url('app_product_index') }}" class="btn btn-inverse">KLIK DISINI</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-title"></div>
+                            <a class="img-block">
+                                <img class="img-responsive" style="width: 100%"
+                                     src="{{ asset('assets/images/products.jpg') }}" alt="img">
+                            </a>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <a href="{{ url('app_part_index') }}">
+                        <div class="inner">
+                            <div class="box-content-overly box-content-overly-white">
+                                <div class="box-text-table">
+                                    <div class="box-text-cell ">
+                                        <div class="box-text-cell-inner dark">
+                                            <h1 class="uppercase">YGP</h1>
+                                            <p>Katalog Yamalube, Helmet, dan Apparel</p>
+                                            <hr class="submini">
+                                            <a href="{{ url('app_part_index') }}" class="btn btn-inverse">KLIK DISINI</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-title"></div>
+                            <a class="img-block">
+                                <img class="img-responsive" style="width: 100%"
+                                     src="{{ asset('assets/images/accessories.jpg') }}" alt="img">
+                            </a>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <a href="http://www.yamaha-motor.co.id/page/partscatalogue"
+                       target="_blank">
+                        <div class="inner">
+                            <div class="box-content-overly box-content-overly-white">
+                                <div class="box-text-table">
+                                    <div class="box-text-cell ">
+                                        <div class="box-text-cell-inner dark">
+                                            <h1 class="uppercase">Parts</h1>
+                                            <p>Part katalog untuk melihat kode part</p>
+                                            <hr class="submini">
+                                            <a href="http://www.yamaha-motor.co.id/page/partscatalogue"
+                                               class="btn btn-inverse"
+                                               target="_blank">KLIK DISINI</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="img-title"></div>
+                            <a class="img-block">
+                                <img class="img-responsive" style="width: 100%"
+                                     src="{{ asset('assets/images/parts-catalogue.jpg') }}" alt="img">
+                            </a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/bookingServiceController.js') }}"></script>
+    <script src="{{ asset('angApp/service.js') }}"></script>
+    <script src="{{ asset('angApp/dealer.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6 col-xxs-12 text-center-xs">
+                <h1 class="section-title-inner"><span><i class="glyphicon glyphicon-book"></i> Booking Service</span>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="row userInfo">
+                    <div class="col-xs-12 col-sm-12" ng-controller="BookingServiceController" cg-busy="main">
+                        <div class="w100 clearfix">
+                            <div class="row userInfo">
+                                <div class="col-lg-12">
+                                    <h2 class="block-title-2"> Untuk melakukan booking service harap mengisi form
+                                        dibawah ini. </h2>
+                                </div>
+                                <div class="col-lg-12" ng-if="success">
+                                    <div class="alert alert-success">Data Booking anda telah disimpan. Silahkan menunggu
+                                        konfirmasi lebih lanjut dari petugas kami. Terima kasih telah menggunakan jasa
+                                        booking service Bahana Yamaha.
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" ng-if="!success">
+                                    <form id="BookingServiceForm" method="post" ng-submit="save()" class="form">
+                                        <div class="col-xs-12 col-sm-6">
+                                            <div class="form-group" ng-class="{'has-error': errors.nama}">
+                                                <label class="control-label" for="nama">Nama</label>
+                                                <div class="text-danger small" ng-show="errors.nama">[[ errors.nama ]]
+                                                </div>
+
+                                                <input type="text" class="form-control" name="nama" id="nama"
+                                                       placeholder="Nama" ng-model="service.nama">
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error': errors.email}">
+                                                <label class="control-label">E-mail</label>
+                                                <div class="text-danger small" ng-show="errors.email">[[ errors.email
+                                                    ]]
+                                                </div>
+
+                                                <input type="text" class="form-control" name="email"
+                                                       placeholder="E-mail" ng-model="service.email">
+                                            </div>
+
+                                            <div class="form-group" ng-class="{'has-error': errors.telepon}">
+                                                <label class="control-label">Telepon</label>
+                                                <div class="text-danger small" ng-show="errors.telepon">[[
+                                                    errors.telepon ]]
+                                                </div>
+
+                                                <input type="text" class="form-control" name="telepon"
+                                                       placeholder="Telepon"
+                                                       ng-model="service.telepon">
+                                            </div>
+
+                                            <div class="form-group" ng-class="{'has-error': errors.tanggalWaktu}">
+                                                <label class="control-label">Tanggal & Waktu</label>
+                                                <div class="text-danger small" ng-show="errors.tanggalWaktu">[[
+                                                    errors.tanggalWaktu ]]
+                                                </div>
+
+                                                <p class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="service.tanggal_waktu"
+                                                           name="tanggalWaktu" datetime-picker
+                                                           is-open="status.tanggal_waktu.opened"/>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"
+                                                            ng-click="open('tanggal_waktu')">
+                                                        <i class="fa fa-calendar"></i></button>
+                                                </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            <div class="form-group" ng-class="{'has-error': errors.dealer}">
+                                                <label class="control-label">Dealer</label>
+                                                <div class="text-danger small" ng-show="errors.dealer">[[ errors.dealer
+                                                    ]]
+                                                </div>
+
+                                                <input type="hidden" id="dealer" name="dealer"
+                                                       value="[[ service.dealer.id ]]">
+                                                <select class="form-control"
+                                                        ng-model="service.dealer.id"
+                                                        ng-options="dealer.id as dealer.nama group by dealer.kota.nama for dealer in dealers | orderBy : ['kota.nama','nama']">
+                                                    <option value="">-- pilih Dealer --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group" ng-class="{'has-error': errors.noPolisi}">
+                                                <label class="control-label">No. Polisi</label>
+                                                <div class="text-danger small" ng-show="errors.noPolisi">[[
+                                                    errors.noPolisi ]]
+                                                </div>
+
+                                                <input type="text" class="form-control" name="noPolisi"
+                                                       placeholder="No. Polisi"
+                                                       ng-model="service.noPolisi">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">&nbsp;</label>
+                                                <input type="submit" class="form-control btn btn-primary"
+                                                       value="Proses Booking Service">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar hidden-sm hidden-xs">
+                <div class="w100 cartMiniTable">
+                    <img src="{{ asset('assets/images/service.jpg') }}" width="100%" class="img-responsive">
+                    <p>{{ service.settingValue | raw }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear:both"></div>
+    </div>
+    <div class="gap"></div>
+{% endblock %}

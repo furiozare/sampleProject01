@@ -1,0 +1,252 @@
+<form id="KendaraanForm" role="form" method="post" ng-submit="save()"
+      cg-busy="CRUD">
+    <div class="modal-header">
+        <button class="close" aria-label="Close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">&times</span>
+        </button>
+        <h4 id="myLargeModalLabel" class="modal-title">[[ title ]]</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="form-group" ng-class="{'has-error': errors.pxlxt}">
+                    <div class="text-danger small" ng-show="errors.pxlxt">[[ errors.pxlxt ]]</div>
+
+                    <label class="control-label">P x L x T</label>
+                    <input type="text" class="form-control" name="pxlxt" placeholder="P x L x T"
+                           ng-model="kendaraan.pxlxt">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.wheelBase}">
+                    <div class="text-danger small" ng-show="errors.wheelBase">[[ errors.wheelBase ]]</div>
+
+                    <label class="control-label">Wheel Base</label>
+                    <input type="text" class="form-control" name="wheelBase" placeholder="Wheel Base"
+                           ng-model="kendaraan.wheel_base">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.seatHeight}">
+                    <div class="text-danger small" ng-show="errors.seatHeight">[[ errors.seatHeight ]]</div>
+
+                    <label class="control-label">Seat Height</label>
+                    <input type="text" class="form-control" name="seatHeight" placeholder="Seat Height"
+                           ng-model="kendaraan.seat_height">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.weight}">
+                    <div class="text-danger small" ng-show="errors.weight">[[ errors.weight ]]</div>
+
+                    <label class="control-label">Weight</label>
+                    <input type="text" class="form-control" name="weight" placeholder="Weight"
+                           ng-model="kendaraan.weight">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.fuelCap}">
+                    <div class="text-danger small" ng-show="errors.fuelCap">[[ errors.fuelCap ]]</div>
+
+                    <label class="control-label">Fuel Cap</label>
+                    <input type="text" class="form-control" name="fuelCap" placeholder="Fuel Cap"
+                           ng-model="kendaraan.fuel_cap">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.chasisType}">
+                    <div class="text-danger small" ng-show="errors.chasisType">[[ errors.chasisType ]]</div>
+
+                    <label class="control-label">Chasis Type</label>
+                    <input type="text" class="form-control" name="chasisType" placeholder="Chasis Type"
+                           ng-model="kendaraan.chasis_type">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.frontSuspension}">
+                    <div class="text-danger small" ng-show="errors.frontSuspension">[[ errors.frontSuspension ]]</div>
+
+                    <label class="control-label">Front Suspension</label>
+                    <input type="text" class="form-control" name="frontSuspension" placeholder="Front Suspension"
+                           ng-model="kendaraan.front_suspension">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.rearSuspension}">
+                    <div class="text-danger small" ng-show="errors.rearSuspension">[[ errors.rearSuspension ]]</div>
+
+                    <label class="control-label">Rear Suspension</label>
+                    <input type="text" class="form-control" name="rearSuspension" placeholder="Rear Suspension"
+                           ng-model="kendaraan.rear_suspension">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.frontBrake}">
+                    <div class="text-danger small" ng-show="errors.frontBrake">[[ errors.frontBrake ]]</div>
+
+                    <label class="control-label">Front Brake</label>
+                    <input type="text" class="form-control" name="frontBrake" placeholder="Front Brake"
+                           ng-model="kendaraan.front_brake">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.rearBrake}">
+                    <div class="text-danger small" ng-show="errors.rearBrake">[[ errors.rearBrake ]]</div>
+
+                    <label class="control-label">Rear Brake</label>
+                    <input type="text" class="form-control" name="rearBrake" placeholder="Rear Brake"
+                           ng-model="kendaraan.rear_brake">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.frontWheel}">
+                    <div class="text-danger small" ng-show="errors.frontWheel">[[ errors.frontWheel ]]</div>
+
+                    <label class="control-label">Front Wheel</label>
+                    <input type="text" class="form-control" name="frontWheel" placeholder="Front Wheel"
+                           ng-model="kendaraan.front_wheel">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.rearWheel}">
+                    <div class="text-danger small" ng-show="errors.rearWheel">[[ errors.rearWheel ]]</div>
+
+                    <label class="control-label">Rear Wheel</label>
+                    <input type="text" class="form-control" name="rearWheel" placeholder="Rear Wheel"
+                           ng-model="kendaraan.rear_wheel">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.engine}">
+                    <div class="text-danger small" ng-show="errors.engine">[[ errors.engine ]]</div>
+
+                    <label class="control-label">Engine</label>
+                    <input type="text" class="form-control" name="engine" placeholder="Engine"
+                           ng-model="kendaraan.engine">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.cylinder}">
+                    <div class="text-danger small" ng-show="errors.cylinder">[[ errors.cylinder ]]</div>
+
+                    <label class="control-label">Cylinder</label>
+                    <input type="text" class="form-control" name="cylinder" placeholder="Cylinder"
+                           ng-model="kendaraan.cylinder">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.cylinderVolume}">
+                    <div class="text-danger small" ng-show="errors.cylinderVolume">[[ errors.cylinderVolume ]]</div>
+
+                    <label class="control-label">Cylinder Volume</label>
+                    <input type="text" class="form-control" name="cylinderVolume" placeholder="Cylinder Volume"
+                           ng-model="kendaraan.cylinder_Volume">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.boreXStroke}">
+                    <div class="text-danger small" ng-show="errors.boreXStroke">[[ errors.boreXStroke ]]</div>
+
+                    <label class="control-label">Bore X Stroke</label>
+                    <input type="text" class="form-control" name="boreXStroke" placeholder="Bore X Stroke"
+                           ng-model="kendaraan.bore_x_stroke">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.compressionRatio}">
+                    <div class="text-danger small" ng-show="errors.compressionRatio">[[ errors.compressionRatio ]]</div>
+
+                    <label class="control-label">Compression Ratio</label>
+                    <input type="text" class="form-control" name="compressionRatio" placeholder="Compression Ratio"
+                           ng-model="kendaraan.compression_ratio">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.horsePower}">
+                    <div class="text-danger small" ng-show="errors.horsePower">[[ errors.horsePower ]]</div>
+
+                    <label class="control-label">Horse Power</label>
+                    <input type="text" class="form-control" name="horsePower" placeholder="Horse Power"
+                           ng-model="kendaraan.horse_power">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.torque}">
+                    <div class="text-danger small" ng-show="errors.torque">[[ errors.torque ]]</div>
+
+                    <label class="control-label">Torque</label>
+                    <input type="text" class="form-control" name="torque" placeholder="Torque"
+                           ng-model="kendaraan.torque">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.systemStarter}">
+                    <div class="text-danger small" ng-show="errors.systemStarter">[[ errors.systemStarter ]]</div>
+
+                    <label class="control-label">System Starter</label>
+                    <input type="text" class="form-control" name="systemStarter" placeholder="System Starter"
+                           ng-model="kendaraan.system_starter">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.systemOil}">
+                    <div class="text-danger small" ng-show="errors.systemOil">[[ errors.systemOil ]]</div>
+
+                    <label class="control-label">System Oil</label>
+                    <input type="text" class="form-control" name="systemOil" placeholder="System Oil"
+                           ng-model="kendaraan.system_oil">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.engineOilCap}">
+                    <div class="text-danger small" ng-show="errors.engineOilCap">[[ errors.engineOilCap ]]</div>
+
+                    <label class="control-label">Engine Oil Cap</label>
+                    <input type="text" class="form-control" name="engineOilCap" placeholder="Engine Oil Cap"
+                           ng-model="kendaraan.engine_oil_cap">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.fuelSystem}">
+                    <div class="text-danger small" ng-show="errors.fuelSystem">[[ errors.fuelSystem ]]</div>
+
+                    <label class="control-label">Fuel System</label>
+                    <input type="text" class="form-control" name="fuelSystem" placeholder="Fuel System"
+                           ng-model="kendaraan.fuel_system">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.clutch}">
+                    <div class="text-danger small" ng-show="errors.clutch">[[ errors.clutch ]]</div>
+
+                    <label class="control-label">Clutch</label>
+                    <input type="text" class="form-control" name="clutch" placeholder="Clutch"
+                           ng-model="kendaraan.clutch">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.transmission}">
+                    <div class="text-danger small" ng-show="errors.transmission">[[ errors.transmission ]]</div>
+
+                    <label class="control-label">Transmission</label>
+                    <input type="text" class="form-control" name="transmission" placeholder="Transmission"
+                           ng-model="kendaraan.transmission">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.electricity}">
+                    <div class="text-danger small" ng-show="errors.electricity">[[ errors.electricity ]]</div>
+
+                    <label class="control-label">Electricity</label>
+                    <input type="text" class="form-control" name="electricity" placeholder="Electricity"
+                           ng-model="kendaraan.electricity">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.ignitionSystem}">
+                    <div class="text-danger small" ng-show="errors.ignitionSystem">[[ errors.ignitionSystem ]]</div>
+
+                    <label class="control-label">Ignition System</label>
+                    <input type="text" class="form-control" name="ignitionSystem" placeholder="Ignition System"
+                           ng-model="kendaraan.ignition_system">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.battery}">
+                    <div class="text-danger small" ng-show="errors.battery">[[ errors.battery ]]</div>
+
+                    <label class="control-label">Battery</label>
+                    <input type="text" class="form-control" name="battery" placeholder="Battery"
+                           ng-model="kendaraan.battery">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.sparkPlug}">
+                    <div class="text-danger small" ng-show="errors.sparkPlug">[[ errors.sparkPlug ]]</div>
+
+                    <label class="control-label">Spark Plug</label>
+                    <input type="text" class="form-control" name="sparkPlug" placeholder="Spark Plug"
+                           ng-model="kendaraan.spark_plug">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Save</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

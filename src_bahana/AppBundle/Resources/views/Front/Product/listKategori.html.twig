@@ -1,0 +1,22 @@
+<div class="col-lg-3 col-md-3 col-sm-12">
+    <div class="panel-group" id="accordionNo">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color: #333">
+                    <span class="collapseWill active">Category</span>
+                </h4>
+            </div>
+            <div id="collapseCategory" class="panel-collapse collapse in">
+                <div class="panel-body" style="padding: 0">
+                    <ul class="nav nav-pills nav-stacked tree">
+                        {% for kategori in kategoris %}
+                            <li class="{{ currentUrl in url('app_product_kategori', { slug:kategori.slug }) ? "active" }}">
+                                <a href="{{ url('app_product_kategori', { slug:kategori.slug }) }}">{{ kategori.nama }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

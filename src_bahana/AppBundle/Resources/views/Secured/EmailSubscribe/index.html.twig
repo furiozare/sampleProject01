@@ -1,0 +1,65 @@
+{% extends "AppBundle:Secured:base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('angApp/controller/secured/emailSubscribeController.js') }}"></script>
+    <script src="{{ asset('angApp/modalController/emailSubscribe/toogleActiveModalController.js') }}"></script>
+    <script src="{{ asset('angApp/resource/emailSubscribe.js') }}"></script>
+    <script src="{{ asset('angApp/emailSubscribe.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row" ng-controller="EmailSubscribeController" style="margin-top: 10px;" cg-busy="main">
+        <div class="col-lg-12">
+            <div class="table-responsive" style="max-height: 500px; overflow: auto;">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                    <tr>
+                        <th style="cursor: pointer;" ng-click="sortData('created_at')">
+                            Joined At
+                            <span ng-if="sorting == 'created_at'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('email')">
+                            Email
+                            <span ng-if="sorting == 'email'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                        <th style="cursor: pointer;" ng-click="sortData('aktif')">
+                            Aktif
+                            <span ng-if="sorting == 'aktif'">
+                                                <i class="fa fa-chevron-up" ng-hide="sortingReverse"></i>
+                                                <i class="fa fa-chevron-down" ng-show="sortingReverse"></i>
+                                            </span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="emailSubscribe in emailSubscribes | filter : searchFilter | orderBy : sorting : sortingReverse">
+                        <td>[[ emailSubscribe.created_at | amDateFormat: date_conf ]]</td>
+                        <td>[[ emailSubscribe.email ]]</td>
+                        <td>
+                            <button ng-click="toogleActiveEmailSubscribe(emailSubscribe)" ng-if="emailSubscribe.aktif"
+                                    class="btn btn-danger">
+                                Non Aktifkan
+                            </button>
+                            <button ng-click="toogleActiveEmailSubscribe(emailSubscribe)" ng-if="!emailSubscribe.aktif"
+                                    class="btn btn-success">
+                                Aktifkan
+                            </button>
+                        </td>
+                    </tr>
+                    <tr ng-if="emailSubscribes.length == 0">
+                        <td colspan="100">Belum ada data yang bisa ditampilkan.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

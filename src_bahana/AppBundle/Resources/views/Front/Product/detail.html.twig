@@ -1,0 +1,400 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var selectedPhotoId = '{{ kendaraan.kendaraanPhotos | length > 0 ? (kendaraan.kendaraanPhotos | first).id : "" }}';
+        var selectedWarnaId = '{{ kendaraan.kendaraanWarnas | length > 0 ? (kendaraan.kendaraanWarnas | first).id : "" }}';
+
+        var photos        = {{ kendaraanPhotos | raw }};
+        var warnas        = {{ kendaraanWarnas | raw }};
+        var kategoriSlug  = '{{ kendaraan.kategori.slug }}';
+        var kendaraanSlug = '{{ kendaraan.slug }}';
+    </script>
+
+    <script src="{{ asset('angApp/controller/detailProductController.js') }}"></script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row transitionfx" ng-controller="DetailProductController">
+            <div class="col-lg-6 col-md-6 col-sm-6 productImageZoom">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-xs-9">
+                        <div class="alert alert-warning" ng-if="kendaraanPhotos.length == 0">
+                            <strong>Perhatian!</strong>
+                            Belum ada foto kendaraan untuk saat ini.
+                        </div>
+                        <div class='zoom' id='zoomContent' ng-if="kendaraanPhotos.length > 0">
+                            <a class="gall-item" title="product-title">
+                                <img class="zoomImage1 img-responsive det-img" ng-src="[[ base_url + selectedPhoto.url ]]"
+                                     alt='{{ kendaraan.nama }}'/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="zoomThumb" ng-if="kendaraanPhotos.length > 1">
+                            <a class="zoomThumbLink" ng-repeat="kendaraanPhoto in kendaraanPhotos"
+                               ng-click="selectPhoto(kendaraanPhoto)"
+                               ng-class="{'active': kendaraanPhoto.id == selectedPhotoId}">
+                                <img ng-src="[[ base_url + kendaraanPhoto.url ]]" alt="Saleen" title=""/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                <h2 class="product-title"> {{ kendaraan.nama }}</h2>
+
+                <h3 class="product-code">Product Code : {{ kendaraan.nama }}</h3>
+
+                <div class="product-price">
+                    <span class="price-sales"> RP {{ kendaraan.harga | number_format(0, ',', '.') }}</span>
+                    {#<span class="price-standard"> RP {{ kendaraan.harga | number_format(0, ',', '.') }}</span>#}
+                </div>
+
+                <div class="details-description">
+                    <p>{{ kendaraan.description | raw }} </p>
+                </div>
+
+                <div class="color-details">
+                    <span class="selected-color"><strong>Pilihan Warna</strong></span>
+                    <ul class="swatches Color" ng-if="kendaraanWarnas.length > 0">
+                        <li ng-click="selectWarna(kendaraanWarna)"
+                            ng-class="{'selected': kendaraanWarna.id == selectedWarnaId}"
+                            ng-repeat="kendaraanWarna in kendaraanWarnas"
+                            style="cursor: pointer;">
+                            <a>
+                                <img ng-src="[[ base_url + kendaraanWarna.warna.url ]]" class="img-responsive">
+                            </a>
+                        </li>
+                    </ul>
+                    <div ng-if="kendaraanWarnas.length == 0" class="alert alert-warning">
+                        <strong>Perhatian!</strong>
+                        Belum ada pilihan warna untuk saat ini.
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="cart-actions">
+                    <div class="addto row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <a class="btn btn-primary btn-lg btn-block" style="cursor: pointer"
+                               ng-click="pesanProduct()">
+                                Pesan Sekarang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="product-tab w100 clearfix">
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#mesin" data-toggle="tab">Mesin</a></li>
+                        <li><a href="#rangka" data-toggle="tab">Rangka</a></li>
+                        <li><a href="#diensi" data-toggle="tab">Dimensi</a></li>
+                        <li><a href="#kelistrikan" data-toggle="tab">Kelistrikan</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="mesin">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        Tipe Mesin
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.engine }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Jumlah / Posisi Silinder
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.cylinder }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Volume Silinder
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.cylinderVolume }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Diameter X Langkah
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.boreXStroke }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Perbandingan Kompresi
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.compressionRatio }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Daya Maksimum
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.horsePower }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Torsi Maksimum
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.torque }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Sistem Starter
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.systemStarter }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Sistem Pelumasan
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.systemOil }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Kapasitas Oli Mesin
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.engineOilCap }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Sistem Bahan Bakar
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.fuelSystem }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Tipe Kopling
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.clutch }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Tipe Transmisi
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.transmission }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="rangka">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        Tipe Rangka
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.chasisType }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Suspensi Depan
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.frontSuspension }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Suspensi belakang
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.rearSuspension }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Ban Depan
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.frontWheel }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Ban belakang
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.rearWheel }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Rem Depan
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.frontBrake }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Rem belakang
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.rearBrake }}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="diensi">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        P X L X T (mm)
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.pxlxt }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Jarak Sumbu Roda
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.wheelBase }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Tinggi Tempat Duduk
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.seatHeight }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Berat Isi
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.weight }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Kapasitas Tangki Mesin
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.fuelCap }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="kelistrikan">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        Sistem Pengapian
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.ignitionSystem }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Battery
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.battery }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Tipe busi
+                                    </td>
+                                    <td>
+                                        : {{ kendaraan.sparkPlug }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="clear:both"></div>
+
+            </div>
+        </div>
+        {% if aksesorises|length > 0 %}
+            <div class="row recommended">
+
+                <h1> AKSESORIS TERKAIT </h1>
+
+                <div id="SimilarProductSlider">
+                    {% for aksesoris in aksesorises %}
+                        <div class="item">
+                            <div class="product">
+                                <a class="product-image"
+                                   href="{{ url('app_product_detail_aksesoris', { slug:kendaraan.kategori.slug, slug1:kendaraan.slug, slug2:aksesoris.slug }) }}">
+                                    {% if aksesoris.aksesorisPhotos | length > 0 %}
+                                        <img src="{{ asset(aksesoris.aksesorisPhotos[0].url) }}" alt="img">
+                                    {% endif %}
+                                </a>
+
+                                <div class="description">
+                                    <h4>
+                                        <a href="{{ url('app_product_detail_aksesoris', { slug:kendaraan.kategori.slug, slug1:kendaraan.slug, slug2:aksesoris.slug }) }}">
+                                            {{ aksesoris.nama }}
+                                        </a>
+                                    </h4>
+
+                                    <div class="price">
+                                        <span>RP {{ aksesoris.harga | number_format(2, '.', ',') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div style="clear:both"></div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<form id="WarnaForm" role="form" method="post" ng-submit="save()"
+      cg-busy="CRUD">
+    <div class="modal-header">
+        <button class="close" aria-label="Close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">&times</span>
+        </button>
+        <h4 id="myLargeModalLabel" class="modal-title">[[ title ]]</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12 text-center" ng-if="statusCRUD == 'update'">
+                <img style="width: 150px" ng-src="[[ base_url + warna.url ]]">
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group" ng-class="{'has-error': errors.file}">
+                    <label><i>*** Tipe gambar .JPG dan ukuran yang disarankan ...px X ...px</i></label>
+
+                    <div class="text-danger small" ng-show="errors.file">[[ errors.file ]]</div>
+                    <input type="file" file-model='file'>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.nama}">
+                    <div class="text-danger small" ng-show="errors.nama">[[ errors.nama ]]</div>
+
+                    <label class="control-label">Nama</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Nama" ng-model="warna.nama">
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': errors.aktif}">
+                    <div class="text-danger small" ng-show="errors.aktif">[[ errors.aktif ]]</div>
+
+                    <label class="control-label checkbox-inline">
+                        <input type="checkbox" name="aktif" value="1" ng-model="warna.aktif"
+                               ng-model="warna.aktif">Aktif
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default">Save</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

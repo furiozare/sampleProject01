@@ -1,0 +1,96 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="cancel()">
+        <span aria-hidden="true">&times</span>
+    </button>
+    <h4 id="myLargeModalLabel" class="modal-title">[[ title ]]</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-12" cg-busy="loadingKendaraanWarna">
+            <div class="row">
+                <div class="col-lg-12">
+                    <strong>Warna</strong>
+                    <button ng-click="createWarna()" type="button" class="btn btn-primary btn-circle"><i
+                            class="fa fa-plus"></i></button>
+                    <small class="text-danger">
+                        *(Double click pada warna yang ingin dihapus)
+                    </small>
+                </div>
+                <div class="col-lg-2" ng-repeat="kendaraanWarna in kendaraanWarnas"
+                     ng-dblclick="removeWarna(kendaraanWarna)">
+                    <img ng-src="[[ base_url + kendaraanWarna.warna.url ]]" class="img-responsive">
+                </div>
+                <div class="col-lg-12" ng-if="kendaraanWarnas.length == 0">
+                    <div class="alert alert-danger">
+                        <strong>Perhatian!!</strong> Belum ada pilihan warna untuk kendaraan ini.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" cg-busy="loadingKendaraanPhoto">
+            <div class="row">
+                <div class="col-lg-12">
+                    <strong>Foto</strong>
+                    <button ng-click="createPhoto()" type="button" class="btn btn-primary btn-circle"><i
+                            class="fa fa-plus"></i></button>
+                    <small class="text-danger">
+                        *(Double click pada foto yang ingin dihapus)
+                    </small>
+                </div>
+                <div class="col-lg-4" ng-repeat="kendaraanPhoto in kendaraanPhotos"
+                     ng-dblclick="removePhoto(kendaraanPhoto)">
+                    <img ng-src="[[ base_url + kendaraanPhoto.url ]]" class="img-responsive">
+                </div>
+                <div class="col-lg-12" ng-if="kendaraanPhotos.length == 0">
+                    <div class="alert alert-danger">
+                        <strong>Perhatian!!</strong> Belum ada pilihan foto untuk kendaraan ini.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" cg-busy="loadingAksesoris">
+            <div class="row">
+                <div class="col-lg-12">
+                    <strong>Aksesoris</strong>
+                    <button ng-click="createAksesoris()" type="button" class="btn btn-primary btn-circle"><i
+                            class="fa fa-plus"></i></button>
+                </div>
+                <div class="col-lg-12" ng-if="aksesorises.length > 0">
+                    <table class="table table-striped table-bordered table-hover table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Aktif</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="aksesoris in aksesorises">
+                            <td>[[ aksesoris.nama ]]</td>
+                            <td>
+                                <input type="checkbox" name="aktif" value="1" ng-model="aksesoris.aktif"
+                                       ng-change="toogleActiveAksesoris(aksesoris)">
+                            </td>
+                            <td>
+                                <button ng-click="detailAksesoris(aksesoris)" type="button"
+                                        class="btn btn-info btn-circle"><i class="fa fa-magic"></i></button>
+                                <button ng-click="fotoAksesoris(aksesoris)" type="button"
+                                        class="btn btn-success btn-circle"><i class="fa fa-picture-o"></i></button>
+                                <button ng-click="updateAksesoris(aksesoris)" type="button"
+                                        class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></button>
+                                <button ng-click="removeAksesoris(aksesoris)" type="button"
+                                        class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12" ng-if="aksesorises.length == 0">
+                    <div class="alert alert-danger">
+                        <strong>Perhatian!!</strong> Belum ada pilihan aksesoris untuk kendaraan ini.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
